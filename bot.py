@@ -22,6 +22,7 @@ async def rank(ctx):
         parsed_text = parse(img_raw_text)
         formatted_text = simple_format(parsed_text)
         await ctx.send(formatted_text)
+        print(ctx.message.user)
     else:
         await ctx.send("where my lvls at :c")
 
