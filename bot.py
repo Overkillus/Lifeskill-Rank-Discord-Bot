@@ -1,7 +1,5 @@
 # bot.py
-import os
 import discord
-from dotenv import load_dotenv
 from discord.ext import commands
 from bot_google import text_from_image_google
 from text_parser import parse, simple_format
