@@ -18,7 +18,7 @@ def parse(text):
             else:
                 lifeskill_data["lifeskill"] = current_data.split()[-1]
         parsed_data.append(lifeskill_data)
-    return json.dumps(parsed_data)
+    return parsed_data
 
 def simple_format(parsed_data):
     formatted_text = ""

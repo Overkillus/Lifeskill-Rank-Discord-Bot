@@ -3,6 +3,7 @@ import discord
 from discord.ext import commands
 from bot_google import text_from_image_google
 from text_parser import parse, simple_format
+from database_handler import *
 from keys.discordToken import DISCORD_TOKEN
 
 TOKEN = DISCORD_TOKEN
@@ -20,7 +21,8 @@ async def rank(ctx):
         parsed_text = parse(img_raw_text)
         formatted_text = simple_format(parsed_text)
         await ctx.send(formatted_text)
-        print(ctx.message.user)
+        print(ctx.message.author)
+        print(ctx.message.created_at)
     else:
         await ctx.send("where my lvls at :c")
 
