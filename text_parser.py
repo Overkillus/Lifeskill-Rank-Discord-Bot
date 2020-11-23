@@ -45,8 +45,7 @@ def float_to_level(level_float):
 
 def simple_format(parsed_data):
     formatted_text = ""
-    for i in range(len(parsed_data)):
-        current = parsed_data[i]
-        formatted_text += current.get("lifeskill") +" "
-        formatted_text += current.get("level") +" "+ current.get("percentage") + "\n"
+    for key, value in parsed_data:
+        formatted_text += key + " "
+        formatted_text += float_to_level(value) + "\n"
     return formatted_text
