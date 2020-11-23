@@ -6,6 +6,7 @@ from text_parser import parse, simple_format
 from database_handler import *
 from keys.discordToken import DISCORD_TOKEN
 from datetime import datetime
+import json
 
 TOKEN = DISCORD_TOKEN
 
@@ -13,13 +14,13 @@ bot = commands.Bot(command_prefix="/")
 
 @bot.event
 async def on_ready():
-    initialize_database()
+    # initialise_database()
     print(f'{bot.user} has connected to Discord!')
 
 @bot.event
 async def on_guild_join(guild):
     print("I joined a guild named " + guild.name)
-    initialize_database()
+    initialise_database(guild.name)
 
 @bot.command()
 async def rank(ctx):
