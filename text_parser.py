@@ -17,19 +17,20 @@ def parse(text):
                 level_nr = current_data.split()[1]
             else:
                 lifeskill = current_data.split()[-1]
+                lifeskill = ''.join([c for c in lifeskill if i.isalpha()])
         parsed_data[lifeskill] = levels_to_float(level_name, level_nr, percentage)
     return parsed_data
 
 def levels_to_float(level_name, level_nr, percentage):
 
-    names = ["Begginer", "Apprentice", "Skilled", "Professional", "Aritsan", "Master", "Guru"]
+    names = ["Begginer", "Apprentice", "Skilled", "Professional", "Artisan", "Master", "Guru"]
     added_levels = [0, 10, 20, 30, 40, 70, 120]
     levels_dict = dict(zip(names, added_levels))
     
     return levels_dict[level_name] + float(level_nr) + float(percentage[:-1])/100
 
 def float_to_level(level_float):
-    names = ["Begginer", "Apprentice", "Skilled", "Professional", "Aritsan", "Master", "Guru"]
+    names = ["Begginer", "Apprentice", "Skilled", "Professional", "Artisan", "Master", "Guru"]
     added_levels = [0, 10, 20, 30, 40, 50, 80]
     levels_dict = dict(zip(added_levels, names))
 

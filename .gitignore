@@ -1,4 +1,7 @@
+bdo_database.db
+
 *.jpg
+
 keys/
 myVenv/
 __pycache__/

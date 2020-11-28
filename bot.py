@@ -1,5 +1,6 @@
 # bot.py
 import discord
+import json
 from discord.ext import commands
 from bot_google import text_from_image_google
 from text_parser import parse, simple_format
@@ -13,28 +14,36 @@ bot = commands.Bot(command_prefix="/")
 
 @bot.event
 async def on_ready():
-    initialize_database()
+    # initialise_database()
     print(f'{bot.user} has connected to Discord!')
 
-@bot.event
-async def on_guild_join(guild):
-    print("I joined a guild named " + guild.name)
-    initialize_database()
+# @bot.event
+# async def on_guild_join(guild):
+#     print("I joined a guild named " + guild.name)
+#     initialize_database()
 
 @bot.command()
 async def rank(ctx):
+    server_name = ctx.guild.name
+    print(server_name)
+    print(dir(type(server_name)))
+    server_id = get_server_id(server_name)
+    print("aaaa")
+    if server_id == None: 
+        print("not in db")
+        insert_server(server_name)
 
     if ctx.message.attachments:
         img_raw_text = text_from_image_google(ctx.message.attachments[0].url)
         parsed_text = parse(img_raw_text)
-        formatted_text = simple_format(parsed_text)
+        # formatted_text = simple_format(parsed_text)
         lifeskill_json = json.dumps(parsed_text) 
         date = datetime.now()
         date_string = date.strftime("%m/%d/%Y, %H:%M:%S")
 
-        await ctx.send(formatted_text)
+        await ctx.send("got it")
 
-        nick = ctx.message.author
+        nick = ctx.message.author.name
         server_name = ctx.message.guild.name
         server_id = get_server_id(server_name)
 
