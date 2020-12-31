@@ -1,5 +1,7 @@
 import json
 
+# Main function converting raw text from image recognition API to a dictionary
+# Format: dictionary of pairs (skill_name, level) in form (string, float)
 def parse(text):
     raw_data = text.splitlines()
     parsed_data = {}
@@ -21,6 +23,7 @@ def parse(text):
         parsed_data[lifeskill] = levels_to_float(level_name, level_nr, percentage)
     return parsed_data
 
+# Convert BDO level format to float
 def levels_to_float(level_name, level_nr, percentage):
 
     names = ["Begginer", "Apprentice", "Skilled", "Professional", "Artisan", "Master", "Guru"]
@@ -29,6 +32,8 @@ def levels_to_float(level_name, level_nr, percentage):
     
     return levels_dict[level_name] + float(level_nr) + float(percentage[:-1])/100
 
+# Convert float to BDO level format. Each stage has a number of levels included in it. The remainder is left as a number. 
+# i.e. Guru starts from 80, so level 87 = Guru 7. Numbers after floating point turn into percentages.
 def float_to_level(level_float):
     names = ["Begginer", "Apprentice", "Skilled", "Professional", "Artisan", "Master", "Guru"]
     added_levels = [0, 10, 20, 30, 40, 50, 80]
@@ -44,6 +49,7 @@ def float_to_level(level_float):
             level_string += " " + str( round(level_float - int(level_float), 4) * 100) + "%"
             return level_string
 
+# Convert all level data of 1 user to easily readable format
 def simple_format(parsed_data):
     formatted_text = ""
     for key, value in parsed_data:

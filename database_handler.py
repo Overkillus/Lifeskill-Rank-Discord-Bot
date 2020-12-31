@@ -26,6 +26,7 @@ def initialise_database():
 
     connection.close()
  
+ # Attempts connection with database
 def establish_connection():
     for i in range(50):
         connection = None
@@ -36,7 +37,7 @@ def establish_connection():
             print(e)
     return connection
  
- 
+ # Inserts single player entry in json format (with message date)
 def insert_entry(server_id, nick, lifeskill_json, date):
     connection = establish_connection()
     with connection:
@@ -47,6 +48,7 @@ def insert_entry(server_id, nick, lifeskill_json, date):
         connection.commit()
     connection.close()
  
+ # Inserts server into server table
 def insert_server(server_name):
     connection = establish_connection()
     with connection:
@@ -58,7 +60,7 @@ def insert_server(server_name):
     connection.close()
  
  
- 
+ # Retrieve server id if name is known
 def get_server_id(server_name):
     result = None
     connection = establish_connection()
@@ -76,15 +78,18 @@ def get_server_id(server_name):
     # no connection and no result to be handled
     return result
 
+# Retrieve all player and server entries
 def get_all_player_entries():
     connection = establish_connection()
     with connection:
         cursor = connection.cursor()
+        # player part
         query = """SELECT * FROM players"""
         cursor.execute(query)
         result = cursor.fetchall()
         print(result)
         
+        # server part
         query = """SELECT * FROM servers"""
         cursor.execute(query)
         result = cursor.fetchall()
