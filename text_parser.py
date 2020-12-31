@@ -19,7 +19,7 @@ def parse(text):
                 level_nr = current_data.split()[1]
             else:
                 lifeskill = current_data.split()[-1]
-                lifeskill = ''.join([c for c in lifeskill if i.isalpha()])
+                lifeskill = ''.join([c for c in lifeskill if c.isalpha()])
         parsed_data[lifeskill] = levels_to_float(level_name, level_nr, percentage)
     return parsed_data
 

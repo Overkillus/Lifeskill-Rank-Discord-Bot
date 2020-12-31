@@ -20,5 +20,3 @@ def text_from_image_google(url):
 
     print(visionResponse.full_text_annotation.text)
     return visionResponse.full_text_annotation.text
-
-#text_from_image_google("https://cdn.discordapp.com/attachments/743453661157654531/745725633396736171/unknown.png")
