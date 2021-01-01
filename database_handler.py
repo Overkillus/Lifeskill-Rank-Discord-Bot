@@ -86,15 +86,47 @@ def get_all_player_entries():
         # player part
         query = """SELECT * FROM players"""
         cursor.execute(query)
-        result = cursor.fetchall()
-        print(result)
+        player_result = cursor.fetchall()
+        print(player_result)
         
         # server part
         query = """SELECT * FROM servers"""
         cursor.execute(query)
-        result = cursor.fetchall()
-        print(result)
+        server_result = cursor.fetchall()
+        print(server_result)
     
     connection.close()
+    return player_result
 
+def get_newest_unique_player_entries():
+    connection = establish_connection()
+    with connection:
+        cursor = connection.cursor()
+        sql_get_newest = """SELECT mt.*     
+                            FROM players mt INNER JOIN
+                                (
+                                    SELECT nick, MAX(date) AS MaxDate
+                                    FROM players
+                                    GROUP BY nick
+                                ) t ON mt.nick = t.nick AND mt.date = t.MaxDate"""
+        cursor.execute(sql_get_newest)
+        result = cursor.fetchall()
+    connection.close()
+    return result 
 
+def get_local_newest_unique_player_entries(server_id):
+    connection = establish_connection()
+    with connection:
+        cursor = connection.cursor()
+        query = """SELECT mt.*     
+                            FROM players mt INNER JOIN
+                                (
+                                    SELECT nick, MAX(date) AS MaxDate
+                                    FROM players
+                                    GROUP BY nick
+                                ) t ON mt.nick = t.nick AND mt.date = t.MaxDate WHERE server_id=?"""
+        data_tuple = (server_id, )
+        cursor.execute(query, data_tuple)
+        result = cursor.fetchall()
+    connection.close()
+    return result 
