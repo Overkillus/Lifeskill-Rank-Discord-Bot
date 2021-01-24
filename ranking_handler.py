@@ -7,9 +7,9 @@ import constants
 def rank_user(entry_tuples, current_entry):
     # Format of tuple: (id, server_id, nick, lisfeskill_json, datetime)
     # Save nick of the user who calls the command
-    current_nick = current_entry[2]
+    current_nick = current_entry[1]
     # Unpack lifeskill json to a dictionary of pairs: (profession name, level)
-    current_level_dict = json.loads(current_entry[3])
+    current_level_dict = json.loads(current_entry[2])
     # Initialise dict to store rank for each profession: (profession name, rank). Initial value is 1 for all professions
     rank_dict = {}
     user_number_dict = {}
@@ -31,9 +31,6 @@ def rank_user(entry_tuples, current_entry):
                     rank_dict[key] += 1
     # Conver floats to percentages
     for profession, value in rank_dict.items():
-        if profession != "Barter":
-            print(rank_dict[profession])
-            print(user_number)
         level = str(round(rank_dict[profession] / user_number * 100, 2)) + "%"
         rank_dict[profession] = level
     return rank_dict
